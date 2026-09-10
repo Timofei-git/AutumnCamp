@@ -9,7 +9,7 @@ def count_time(func):
         start = time.time()
         result = func(*args, **kwargs)
         end = time.time()
-        print(f'Время выполнения функции {end-start}')
+        print(f'Время выполнения функции {func.__name__}: {end-start}')
         return result
     return wrapper
 
