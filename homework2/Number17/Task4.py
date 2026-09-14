@@ -40,6 +40,17 @@ def merge_sort(arr, cache={}):
     cache[key] = result
     return result
 
+def merge_sort_no_cache(arr):
+
+
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+
+    return merge(left, right)
 
 def fib(n, cache={}):
     if n in cache:
@@ -54,13 +65,29 @@ def fib(n, cache={}):
     cache[n] = result
     return result
 
+def fib_no_cache(n):
+
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+
+    return fib_no_cache(n - 1) + fib_no_cache(n - 2)
+
 lst = [random.randint(1, 99) for _ in range(1000)]
+start = time.time()
+merge_sort(lst, {})
+print("merge_sort с кешем:", time.time() - start)
 
 start = time.time()
-merge_sort(lst)
-print("merge_sort с кешем:", time.time() - start)
+merge_sort_no_cache(lst)
+print("merge_sort без кеша:", time.time() - start)
 
 start = time.time()
 fib(30)
 print("fib с кешем:", time.time() - start)
+
+start = time.time()
+fib_no_cache(30)
+print("fib без кеша:", time.time() - start)
 # кэш поможет только наивной фибоначчи потому что значения которые вычисляются часть втсречаются больше одного раза а в мердж сорт шанс одинаковые значения  почти не встречаются и смысла в кешировании нет
